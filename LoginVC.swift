@@ -2,7 +2,7 @@
 //  LoginVC.swift
 //  
 //
-//  Created by Tuan Ma on 8/23/18.
+//  Created by Tuan Ma on 10/23/18.
 //  Copyright © 2018 Tuan Ma. All rights reserved.
 //
 import UIKit
