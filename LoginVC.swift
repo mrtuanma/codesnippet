@@ -8,7 +8,8 @@
 import UIKit
 
 class LoginVC: UIViewController, UITextFieldDelegate {
-
+    
+    // activity indicator
     let indicator = ActivityIndicator()
     
     @IBOutlet weak var emailTextField: UITextField!
@@ -16,11 +17,11 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     
     @IBAction func loginBtn(_ sender: Any) {
         
+        // trims white space
         let email = emailTextField.text?.trim();
         let password = passwordTextField.text?.trim();
        
-    
-        //Checks if email and password textfields are empty
+        // checks if email and password textfields are empty
         if  ((email?.isEmpty)! && (password?.isEmpty)!) {
             let title = "Error"
             let message = "Both email and password are required."
@@ -28,25 +29,24 @@ class LoginVC: UIViewController, UITextFieldDelegate {
 
         } else {
         
-        // send request to sql db
-        let url = NSURL(string : "#")!;
-    
-        // request url
-   
-        var request = URLRequest(url: url as URL)
-        
-        // method to pass data POST
-        request.httpMethod = "POST";
-        
-        // append url
-        let postString = "email=\(emailTextField.text!)&password=\(passwordTextField.text!)"
-        
-        request.httpBody = postString.data(using: String.Encoding.utf8);
-        
-        let config = URLSessionConfiguration.default
-        let session = URLSession(configuration: config)
-        
-        let task = session.dataTask(with: request) { (data, response, error) in
+            // api url
+            let url = NSURL(string : "#")!;
+
+            // request url
+            var request = URLRequest(url: url as URL)
+
+            // method to pass data POST
+            request.httpMethod = "POST";
+
+            // append url
+            let postString = "email=\(emailTextField.text!)&password=\(passwordTextField.text!)"
+
+            request.httpBody = postString.data(using: String.Encoding.utf8);
+
+            let config = URLSessionConfiguration.default
+            let session = URLSession(configuration: config)
+
+            let task = session.dataTask(with: request) { (data, response, error) in
             
             // check for any errors
             guard error == nil else {
@@ -62,7 +62,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
             
                                                  
             if error == nil {
-                // parse the result as JSON, since that's what the API provides
+                // parse JSON
                 do {
                     guard let json = try JSONSerialization.jsonObject(with: responseData, options: []) as? NSDictionary else {
                             print("error trying to convert data to JSON")
@@ -99,6 +99,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
                         
                         UserDefaults.standard.set(json, forKey: "json")
                         user = UserDefaults.standard.value(forKey: "json") as? NSDictionary
+                        
                         DispatchQueue.main.async {
                             self.indicator.startIndicator(view: self.view, targetVC: self)
                             appDelegate.login();
