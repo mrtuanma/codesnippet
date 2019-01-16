@@ -1,6 +1,6 @@
 //
 //  LoginVC.swift
-//  staffspace
+//  
 //
 //  Created by Tuan Ma on 8/23/18.
 //  Copyright © 2018 Tuan Ma. All rights reserved.
@@ -29,10 +29,10 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         } else {
         
         // send request to sql db
-        let url = NSURL(string : "http://demo.staffspacesolutions.com/mobile/login.php")!;
+        let url = NSURL(string : "#")!;
     
         // request url
-        //let request = NSMutableURLRequest(url: url as URL);
+   
         var request = URLRequest(url: url as URL)
         
         // method to pass data POST
@@ -54,12 +54,13 @@ class LoginVC: UIViewController, UITextFieldDelegate {
                 return
             }
             
-            // make sure we got data
+            // checks for data
             guard let responseData = data else {
                 print("Error: did not receive data")
                 return
             }
             
+                                                 
             if error == nil {
                 // parse the result as JSON, since that's what the API provides
                 do {
@@ -128,7 +129,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         self.emailTextField.delegate = self
         self.passwordTextField.delegate = self
-        // Do any additional setup after loading the view.
+       
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
